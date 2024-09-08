@@ -1,0 +1,46 @@
+-- Создание таблицы Туров
+CREATE TABLE Туры (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    название VARCHAR(255) NOT NULL,
+    длительность INT NOT NULL,
+    цена DECIMAL(10, 2) NOT NULL,
+    начальный_город_id INT,
+    конечный_город_id INT,
+    FOREIGN KEY (начальный_город_id) REFERENCES Города(id),
+    FOREIGN KEY (конечный_город_id) REFERENCES Города(id)
+);
+
+-- Создание таблицы Клиентов
+CREATE TABLE Клиенты (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    фамилия VARCHAR(255) NOT NULL,
+    имя VARCHAR(255) NOT NULL,
+    телефон VARCHAR(20) NOT NULL
+);
+
+-- Создание таблицы Услуг
+CREATE TABLE Услуги (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    название VARCHAR(255) NOT NULL,
+    описание TEXT,
+    стоимость DECIMAL(10, 2) NOT NULL
+);
+
+-- Создание таблицы Городов
+CREATE TABLE Города (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    название VARCHAR(255) NOT NULL
+);
+
+-- Создание таблицы Заказов (переменная информация)
+CREATE TABLE Заказы (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    клиент_id INT,
+    тур_id INT,
+    услуга_id INT,
+    дата_заказа DATE NOT NULL,
+    количество_человек INT NOT NULL,
+    FOREIGN KEY (клиент_id) REFERENCES Клиенты(id),
+    FOREIGN KEY (тур_id) REFERENCES Туры(id),
+    FOREIGN KEY (услуга_id) REFERENCES Услуги(id)
+);
